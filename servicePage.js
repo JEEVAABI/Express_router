@@ -85,6 +85,27 @@ router.param('id', (request,response, next, id) => {
     next()
 })
 
+router.get('/newUser',(request,response) =>{
+    // response.send("This is new user")
+    response.render('services/new')
+})
+
+router.post('/',(request,response) =>{
+  const isAValidUser = true
+  if(isAValidUser)
+  {
+    listOfService.push({Service:request.body.servicename})
+    response.redirect(`service/${listOfService.length-1}`)
+  }
+  else{
+    console.log("Error")
+    response.render('services/new',{Service : request.body.servicename})
+
+  }
+  console.log(request.body.servicename)
+  response.send('New User created successfully')
+})
+
 
 router.get('/:id',(request,response)=>{
     // response.send(`user id is ${request.params.id}`)
